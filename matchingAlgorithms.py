@@ -3,15 +3,15 @@ import os
 import jellyfish
 import torch
 from flask import Flask, request, jsonify
-from transformers import BertTokenizer, BertModel
+from transformers import DistilBertTokenizer, DistilBertModel
 
 app = Flask(__name__)
 
 admin_skill_list = ['Python', 'relational database', 'Software engineering', 'data science', 'NLP',
                     'natural language processing']
 
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', local_files_only=True)
-bert_model = BertModel.from_pretrained('bert-base-uncased', local_files_only=True)
+tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+bert_model = DistilBertModel.from_pretrained('distilbert-base-uncased')
 
 def levenshtein_similarity(a, b):
     return 1 - (jellyfish.levenshtein_distance(a.lower(), b.lower()) / max(len(a), len(b)))
