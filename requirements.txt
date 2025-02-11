@@ -2,3 +2,4 @@ Flask
 jellyfish
 torch
 transformers
+gunicorn
