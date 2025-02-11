@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teamo Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: plum;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #response {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Skill Matching Chatbot</h1>
+    <p>Enter a skill name and get the best matches:</p>
+
+    <input type="text" id="skillInput" placeholder="Enter skill..." />
+    <button onclick="fetchSkillMatches()">Search</button>
+
+    <div id="response"></div>
+
+<script>
+    async function fetchSkillMatches() {
+        const skill = document.getElementById("skillInput").value.trim();
+        const apiUrl = "https://teamo-challenge.onrender.com/match";
+
+        if (!skill) {
+            alert("Please enter a skill name.");
+            return;
+        }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ skill })
+            });
+
+            const data = await response.json();
+
+            let output = "<h3>Best Matches:</h3>";
+            if (data.length > 0) {
+                data.forEach(match => {
+                    output += `<p>✅ ${match.skill} (Score: ${match.final_score.toFixed(2)})</p>`;
+                });
+            } else {
+                output = "<p>No matches found.</p>";
+            }
+
+            document.getElementById("response").innerHTML = output;
+        } catch (error) {
+            document.getElementById("response").innerHTML = "<p>Error fetching results.</p>";
+            console.error("Error:", error);
+        }
+    }
+</script>
+
+
+</body>
+</html>
