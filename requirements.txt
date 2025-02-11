@@ -1,3 +1,4 @@
 Flask
 jellyfish
 gunicorn
+flask_cors

@@ -2,8 +2,11 @@ import os
 
 import jellyfish
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app)
 
 admin_skill_list = ['Python', 'relational database', 'Software engineering', 'data science', 'NLP',
                     'natural language processing']
