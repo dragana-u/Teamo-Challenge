@@ -48,34 +48,28 @@
             return;
         }
 
-        try {
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ skill })
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ skill })
+        });
+
+        const data = await response.json();
+
+        let output = "<h3>Best Matches:</h3>";
+        if (data.length > 0) {
+            data.forEach(match => {
+                output += `<p>✅ ${match.skill} (Score: ${match.final_score.toFixed(2)})</p>`;
             });
-
-            const data = await response.json();
-
-            let output = "<h3>Best Matches:</h3>";
-            if (data.length > 0) {
-                data.forEach(match => {
-                    output += `<p>✅ ${match.skill} (Score: ${match.final_score.toFixed(2)})</p>`;
-                });
-            } else {
-                output = "<p>No matches found.</p>";
-            }
-
-            document.getElementById("response").innerHTML = output;
-        } catch (error) {
-            document.getElementById("response").innerHTML = "<p>Error fetching results.</p>";
-            console.error("Error:", error);
+        } else {
+            output = "<p>No matches found.</p>";
         }
+
+        document.getElementById("response").innerHTML = output;
     }
 </script>
-
 
 </body>
 </html>
