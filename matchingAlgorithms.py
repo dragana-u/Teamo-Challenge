@@ -1,8 +1,7 @@
-import os
-
 import jellyfish
 import torch
 from flask import Flask, request, jsonify
+from gevent.pywsgi import WSGIServer
 from transformers import DistilBertTokenizer, DistilBertModel
 
 app = Flask(__name__)
@@ -65,4 +64,5 @@ def match_skill():
     return jsonify(results)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
+    http_server = WSGIServer(("0.0.0.0", 5000), app)
+    http_server.serve_forever()

@@ -1,1 +1,1 @@
-web: gunicorn matchingAlgorithms:app
+gunicorn --worker-class=gevent --worker-connections=1000 --workers=3 matchingAlgorithms:app

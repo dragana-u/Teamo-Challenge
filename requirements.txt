@@ -3,3 +3,4 @@ jellyfish
 torch
 transformers
 gunicorn
+gevent
