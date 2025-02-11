@@ -1,3 +1,5 @@
+import os
+
 import jellyfish
 import torch
 from flask import Flask, request, jsonify
@@ -63,4 +65,4 @@ def match_skill():
     return jsonify(results)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
