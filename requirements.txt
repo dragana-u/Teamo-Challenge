@@ -1,6 +1,3 @@
 Flask
 jellyfish
-torch
-transformers
 gunicorn
-gevent
