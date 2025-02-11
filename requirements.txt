@@ -1,0 +1,4 @@
+Flask
+jellyfish
+torch
+transformers
